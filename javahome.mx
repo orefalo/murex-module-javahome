@@ -7,11 +7,11 @@ if { os darwin } then {
       $ENV.JAVA_HOME = ${/usr/libexec/java_home}
 
    } else {
-      ${which java} -> set javapath
+      javapath = which(javac)
 
       # if it is a link, resolve to the real path
       if { $javapth -> f: +l } then {
-         ${readlink $javapath} -> set javapath
+         javapath = readlink($javapath)
       }
       # the double dirname allows me to get a clean path without '../..'
       $ENV.JAVA_HOME = dirname(dirname $javapath)
