@@ -1,0 +1,24 @@
+
+if { os darwin } then {
+
+
+   if { /usr/libexec/java_home -> f: +x } then {
+      ${/usr/libexec/java_home} -> export JAVA_HOME
+   } else {
+      ${which java} -> set javapath
+      if { $javapth -> f: +l } then {
+         ${readlink $javapath} -> set javapath
+      }
+      ${dirname ${dirname $javapath}} -> export JAVA_HOME
+   }
+
+} else {
+   
+   if { os linux } then {
+      ${dirname ${dirname ${readlink -f ${which javac}}}} -> export JAVA_HOME
+   }
+
+}
+
+export PATH="$JAVA_HOME/bin:$PATH"
+

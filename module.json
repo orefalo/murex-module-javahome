@@ -1,0 +1,13 @@
+[
+	{
+		"Name": "javahome",
+		"Summary": "Attempts to auto-set the JAVA_HOME environment variable and PATH",
+		"Version": "1.0",
+		"Source": "javahome.mx",
+		"Dependencies": {
+			"Optional": [],
+			"Required": [],
+			"Platform": [ "posix" ]
+		}
+	}
+]
