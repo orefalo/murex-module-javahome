@@ -1,24 +1,29 @@
 
 if { os darwin } then {
 
-
+   # On OSX with the java_home command, everything is very simple
    if { /usr/libexec/java_home -> f: +x } then {
-      ${/usr/libexec/java_home} -> export JAVA_HOME
+
+      $ENV.JAVA_HOME = ${/usr/libexec/java_home}
+
    } else {
       ${which java} -> set javapath
+
+      # if it is a link, resolve to the real path
       if { $javapth -> f: +l } then {
          ${readlink $javapath} -> set javapath
       }
-      ${dirname ${dirname $javapath}} -> export JAVA_HOME
+      # the double dirname allows me to get a clean path without '../..'
+      $ENV.JAVA_HOME = dirname(dirname $javapath)
    }
 
 } else {
    
    if { os linux } then {
-      ${dirname ${dirname ${readlink -f ${which javac}}}} -> export JAVA_HOME
+      # the double dirname allows me to get a clean path without '../..'
+      $ENV.JAVA_HOME = dirname(dirname(readlink -f which(javac)))
    }
 
 }
 
-export PATH="$JAVA_HOME/bin:$PATH"
-
+$ENV.PATH="$JAVA_HOME/bin:$PATH"
