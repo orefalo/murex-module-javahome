@@ -2,7 +2,7 @@
 if { os darwin } then {
 
    # On OSX with the java_home command, everything is very simple
-   if { /usr/libexec/java_home -> f: +x } then {
+   if { /usr/libexec/java_home -> f +x } then {
 
       $ENV.JAVA_HOME = ${/usr/libexec/java_home}
 
@@ -10,7 +10,7 @@ if { os darwin } then {
       javapath = which(javac)
 
       # if it is a link, resolve to the real path
-      if { $javapth -> f: +l } then {
+      if { $javapth -> f +l } then {
          javapath = readlink($javapath)
       }
       # the double dirname allows me to get a clean path without '../..'
