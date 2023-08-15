@@ -26,4 +26,4 @@ if { os darwin } then {
 
 }
 
-$ENV.PATH="$JAVA_HOME/bin:$PATH"
+$PATH -> :paths: prepend $JAVA_HOME/bin -> export PATH
